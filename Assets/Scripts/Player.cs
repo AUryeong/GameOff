@@ -30,23 +30,7 @@ public class Player : Singleton<Player>
             RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, GetDirection(), 1, LayerMask.GetMask("IntObject"));
             if (raycastHit2D.collider != null)
             {
-                string text;
-                switch (Random.Range(1, 5))
-                {
-                    case 1:
-                        text = "Empty";
-                        break;
-                    case 2:
-                        text = "It's nothing";
-                        break;
-                    case 3:
-                        text = "Blank";
-                        break;
-                    default:
-                        text = "At the next time";
-                        break;
-                }
-                IngameUIManager.Instance.ShowText(text);
+                raycastHit2D.collider.GetComponent<IInteractiveObj>().Interaction();
             }
         }
     }
