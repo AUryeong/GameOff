@@ -9,7 +9,7 @@ public class ParticleCollector : MonoBehaviour
 
     private void Awake()
     {
-        particle = GetComponent<ParticleSystem>();  
+        particle = GetComponent<ParticleSystem>();
     }
 
     private void OnParticleTrigger()
@@ -21,6 +21,7 @@ public class ParticleCollector : MonoBehaviour
             ParticleSystem.Particle triggerParticle = particles[i];
             triggerParticle.remainingLifetime = 0;
             particles[i] = triggerParticle;
+            IngameUIManager.Instance.GetGaugeParticle();
         }
 
         particle.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, particles);

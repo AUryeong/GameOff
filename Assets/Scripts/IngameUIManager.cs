@@ -7,41 +7,67 @@ using TMPro;
 
 public class IngameUIManager : Singleton<IngameUIManager>
 {
-    [SerializeField] Image talkImage;
-    [SerializeField] TextMeshProUGUI talkText;
-
-    [SerializeField] Image gaugeIcon;
-    [SerializeField] Image gaugeBar;
 
     protected int maxEnemyCount;
     protected int killEnemyCount;
-
+    [SerializeField] TextMeshProUGUI talkText;
+    protected Coroutine talkTextCoroutine;
     protected float talkFadeDuration = 0.5f;
     protected float talkTextDuration = 0.1f;
+
+    [SerializeField] Image gaugeIcon;
+    [SerializeField] Image gaugeBar;
+    protected int particleCount = 6;
+    protected float particleGaugeDuration = 0.2f;
+    protected float toParticleGauge = 0;
+    protected float toIconScale = 1;
 
     protected void Start()
     {
         killEnemyCount = 0;
         gaugeBar.fillAmount = 0;
-        maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
+        //maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
+        maxEnemyCount = 3;
+    }
+
+    public void GetGaugeParticle()
+    {
+        gaugeIcon.rectTransform.DOKill();
+        gaugeIcon.rectTransform.DOScale(0.15f, 0.3f).SetEase(Ease.OutBounce).SetRelative().OnComplete(() =>
+        {
+            gaugeIcon.rectTransform.DOScale(1, 0.4f).SetEase(Ease.OutBounce);
+        });
+
+        toParticleGauge += 1f / maxEnemyCount / particleCount;
+        gaugeBar.DOKill();
+        gaugeBar.DOFillAmount(toParticleGauge, particleGaugeDuration);
     }
     public void ShowText(string s)
     {
-        talkImage.DOKill();
         talkText.DOKill();
 
-        talkImage.gameObject.SetActive(true);
-        talkImage.color = new Color(talkImage.color.r, talkImage.color.g, talkImage.color.b, 0);
-        talkImage.DOFade(1, talkFadeDuration);
-
-        talkText.color = Color.white;
-        talkText.text = "";
-        /*talkText.DOText(s, talkTextDuration * s.Length)
-        .OnComplete(() =>
+        talkText.gameObject.SetActive(true);
+        talkText.color = new Color(talkText.color.r, talkText.color.g, talkText.color.b, 0);
+        talkText.DOFade(1, talkFadeDuration);
+        if (talkTextCoroutine != null)
+            StopCoroutine(talkTextCoroutine);
+        talkTextCoroutine = StartCoroutine(ShowTextCoroutine(s));
+    }
+    IEnumerator ShowTextCoroutine(string s)
+    {
+        talkText.text = s;
+        var wait = new WaitForSeconds(talkTextDuration);
+        int showIdx = 0;
+        talkText.maxVisibleCharacters = 0;
+        while (talkText.maxVisibleCharacters < s.Length)
         {
-            talkText.DOFade(0, talkFadeDuration).SetDelay(1);
-            talkImage.DOFade(0, talkFadeDuration).SetDelay(1)
-            .OnComplete(() => talkImage.gameObject.SetActive(false));
-        });*/
+            talkText.maxVisibleCharacters = ++showIdx;
+            yield return wait;
+        }
+        talkText.DOFade(0, talkFadeDuration).SetDelay(1)
+            .OnComplete(() =>
+            {
+                talkText.gameObject.SetActive(false);
+            });
     }
 }
