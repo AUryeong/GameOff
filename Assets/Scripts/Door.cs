@@ -7,6 +7,7 @@ using DG.Tweening;
 public class Door : MonoBehaviour, IInteractiveObj
 {
     public Vector3 targetPos;
+    public static float coolDown;
     public void Interaction()
     {
         PlayerIntDoor();
@@ -15,6 +16,6 @@ public class Door : MonoBehaviour, IInteractiveObj
     public void PlayerIntDoor()
     {
         Player.Instance.transform.position = targetPos;
-        UIManager.Instance.BlackScreenFade(0.5f, 0, 0.4f);
+        UIManager.Instance.BlackScreenFade(0.8f, 0f, 0.7f);
     }
 }

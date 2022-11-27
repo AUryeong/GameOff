@@ -17,20 +17,24 @@ public class Player : Singleton<Player>
     protected Direction direction;
 
     protected readonly float moveTileDuration = 0.2f;
+
+    private float intCooldown = 1;
     protected void Update()
     {
         Move();
         CheckInt();
+        intCooldown -= Time.deltaTime;
     }
 
     protected void CheckInt()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && intCooldown <= 0)
         {
             RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, GetDirection(), 1, LayerMask.GetMask("IntObject"));
             if (raycastHit2D.collider != null)
             {
                 raycastHit2D.collider.GetComponent<IInteractiveObj>().Interaction();
+                intCooldown = 1;
             }
         }
     }
