@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using DG.Tweening;
 
 public class ProwlEnemy : BaseEnemy
 {
@@ -11,7 +12,7 @@ public class ProwlEnemy : BaseEnemy
 
     private bool isLooping = false;
     private bool moving = true;
-    private int moveIndex;
+    private int moveIndex = 1;
     private void Start()
     {
         StartCoroutine(ProwlCoroutine());
@@ -20,7 +21,7 @@ public class ProwlEnemy : BaseEnemy
     {
         while (moving)
         {
-            if (moveIndex > targetPos.Length || moveIndex < 0)
+            if (moveIndex >= targetPos.Length || moveIndex < 0)
             {
                 if (Loop)
                 {
@@ -36,7 +37,7 @@ public class ProwlEnemy : BaseEnemy
             Vector3 pos = posComparator(transform.position, targetPos[moveIndex]);
             if (pos != Vector3.zero)
             {
-                transform.Translate(pos);
+                transform.DOMove(transform.position + pos, moveDelay).SetEase(Ease.Linear);
             }
             else
             {
@@ -44,15 +45,13 @@ public class ProwlEnemy : BaseEnemy
                 continue;
             }
 
-
             yield return new WaitForSeconds(moveDelay);
         }
     }
 
     private Vector3 posComparator(Vector3 pos1, Vector3 pos2)
     {
-
-        Vector3 returnVector = Vector3.Normalize(pos1 - pos2);
+        Vector3 returnVector = Vector3.Normalize(pos1 - pos2) * -1;
 
         return returnVector;
     }

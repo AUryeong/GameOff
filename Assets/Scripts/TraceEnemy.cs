@@ -82,7 +82,6 @@ public class TraceEnemy : BaseEnemy
                 return;
             }
 
-
             // ก่ กๆ ก้ ก็
             OpenListAdd(CurNode.x, CurNode.y + 1);
             OpenListAdd(CurNode.x + 1, CurNode.y);

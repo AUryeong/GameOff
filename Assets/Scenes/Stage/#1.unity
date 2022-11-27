@@ -2604,6 +2604,7 @@ MonoBehaviour:
   talkText: {fileID: 1528434865}
   gaugeIcon: {fileID: 7212412879535262425}
   gaugeBar: {fileID: 7212412881321358096}
+  effectRawImages: []
 --- !u!4 &1613675871
 Transform:
   m_ObjectHideFlags: 0
