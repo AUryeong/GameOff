@@ -22,12 +22,35 @@ public class IngameUIManager : Singleton<IngameUIManager>
     protected float toParticleGauge = 0;
     protected float toIconScale = 1;
 
+    [SerializeField] RawImage[] effectRawImages;
+    Vector2[] rawImagePos;
+
     protected void Start()
     {
         killEnemyCount = 0;
         gaugeBar.fillAmount = 0;
         //maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
         maxEnemyCount = 3;
+
+        rawImagePos = new Vector2[effectRawImages.Length];
+        for(int i = 0; i < effectRawImages.Length; i++)
+            rawImagePos[i] = effectRawImages[i].rectTransform.anchoredPosition;
+
+
+        for (int i = 0; i < effectRawImages.Length; i++)
+        {
+            effectRawImages[i].rectTransform.DOShakeAnchorPos(99, 10, 1).SetLoops(-1);
+        }
+    }
+
+    protected void Update()
+    {
+        RawImageShake();
+    }
+
+    protected void RawImageShake()
+    {
+
     }
 
     public void GetGaugeParticle()
