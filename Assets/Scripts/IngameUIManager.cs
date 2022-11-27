@@ -4,17 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Reflection;
 
 public class IngameUIManager : Singleton<IngameUIManager>
 {
 
     protected int maxEnemyCount;
     protected int killEnemyCount;
+
+    [Header("대화")]
     [SerializeField] TextMeshProUGUI talkText;
     protected Coroutine talkTextCoroutine;
     protected float talkFadeDuration = 0.5f;
     protected float talkTextDuration = 0.1f;
 
+    [Header("게이지")]
     [SerializeField] Image gaugeIcon;
     [SerializeField] Image gaugeBar;
     protected int particleCount = 6;
@@ -23,8 +27,16 @@ public class IngameUIManager : Singleton<IngameUIManager>
     protected float toIconScale = 1;
 
     [SerializeField] RawImage[] effectRawImages;
-    Vector2[] rawImagePos;
 
+    [SerializeField] Image rainbowFilter;
+    [SerializeField] Gradient rainbow;
+
+    [SerializeField] Image noise;
+    protected float noiseCooltime = 5;
+    protected float noiseFadeDuration = 0.1f;
+    protected float noiseDuration = 0.2f;
+    protected float noiseNowDuration = 0;
+    protected float noiseAlpha = 1f;
     protected void Start()
     {
         killEnemyCount = 0;
@@ -32,25 +44,41 @@ public class IngameUIManager : Singleton<IngameUIManager>
         //maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
         maxEnemyCount = 3;
 
-        rawImagePos = new Vector2[effectRawImages.Length];
-        for(int i = 0; i < effectRawImages.Length; i++)
-            rawImagePos[i] = effectRawImages[i].rectTransform.anchoredPosition;
-
-
-        for (int i = 0; i < effectRawImages.Length; i++)
-        {
-            effectRawImages[i].rectTransform.DOShakeAnchorPos(99, 10, 1).SetLoops(-1);
-        }
+        if (effectRawImages != null && effectRawImages.Length > 0)
+            for (int i = 0; i < effectRawImages.Length; i++)
+                effectRawImages[i].rectTransform.DOShakeAnchorPos(3, 16, 1).SetEase(Ease.Linear).SetLoops(-1);
     }
 
     protected void Update()
     {
-        RawImageShake();
+        if (rainbowFilter != null)
+            FilterUpdate();
+        if (noise != null)
+            NoiseUpdate();
     }
 
-    protected void RawImageShake()
+    protected void NoiseUpdate()
     {
-
+        noiseNowDuration += Time.deltaTime;
+        if (noiseNowDuration >= noiseCooltime)
+        {
+            noiseNowDuration -= noiseCooltime;
+            noise.gameObject.SetActive(true);
+            noise.color = new Color(1, 1, 1, 0);
+            noise.DOFade(noiseAlpha, noiseFadeDuration).OnComplete(() =>
+            {
+                noise.DOFade(0, noiseFadeDuration).SetDelay(noiseDuration).OnComplete(() =>
+                {
+                    noise.gameObject.SetActive(false);
+                });
+            });
+        }
+        if (noise.gameObject.activeSelf)
+            noise.rectTransform.anchoredPosition = new Vector2(Random.Range(-960f, 960f), Random.Range(-960f, 960f));
+    }
+    protected void FilterUpdate()
+    {
+        rainbowFilter.color = rainbow.Evaluate(Mathf.Repeat(Time.time * 0.3f, 1f));
     }
 
     public void GetGaugeParticle()
