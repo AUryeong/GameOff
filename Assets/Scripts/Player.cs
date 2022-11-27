@@ -68,7 +68,7 @@ public class Player : Singleton<Player>
             transform.DOLocalMove(GetDirection(), moveTileDuration).SetRelative().OnComplete(() =>
             {
                 isMoving = false;
-            });
+            }).SetEase(Ease.Linear);
         }
     }
 
