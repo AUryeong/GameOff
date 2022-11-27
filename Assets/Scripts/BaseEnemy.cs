@@ -15,7 +15,7 @@ public class BaseEnemy : MonoBehaviour, IInteractiveObj
     {
         Killed();
     }
-    private void Killed()
+    protected void Killed()
     {
         Instantiate(GameManager.Instance.enemyKilledParticle, transform.position, Quaternion.identity);
         spriteRenderer.DOFade(0, 1).OnComplete(() => Destroy(gameObject));
