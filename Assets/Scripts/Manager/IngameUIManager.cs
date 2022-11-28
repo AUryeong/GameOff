@@ -23,7 +23,7 @@ public class IngameUIManager : Singleton<IngameUIManager>
     [SerializeField] Image gaugeBar;
     protected int particleCount = 6;
     protected float particleGaugeDuration = 0.2f;
-    protected float toParticleGauge = 0;
+    public float toParticleGauge = 0;
     protected float toIconScale = 1;
 
     [SerializeField] RawImage[] effectRawImages;
@@ -37,6 +37,10 @@ public class IngameUIManager : Singleton<IngameUIManager>
     protected float noiseDuration = 0.2f;
     protected float noiseNowDuration = 0;
     protected float noiseAlpha = 1f;
+
+    [SerializeField] Image princessImage;
+    protected float stopImageDuration = 2;
+    protected float fadeDuration = 1;
     protected void Start()
     {
         killEnemyCount = 0;
@@ -47,6 +51,24 @@ public class IngameUIManager : Singleton<IngameUIManager>
         if (effectRawImages != null && effectRawImages.Length > 0)
             for (int i = 0; i < effectRawImages.Length; i++)
                 effectRawImages[i].rectTransform.DOShakeAnchorPos(3, 16, 1).SetEase(Ease.Linear).SetLoops(-1);
+
+        if (princessImage != null)
+            StartCoroutine(PrincessImageCoroutine());
+    }
+
+    IEnumerator PrincessImageCoroutine()
+    {
+        princessImage.gameObject.SetActive(true);
+        InGameManager.Instance.isControllable = false;
+
+        yield return new WaitForSeconds(stopImageDuration);
+        while (!Input.anyKeyDown) yield return null;
+
+        princessImage.DOFade(0, fadeDuration).OnComplete(() =>
+        {
+            princessImage.gameObject.SetActive(false);
+            InGameManager.Instance.isControllable = true;
+        });
     }
 
     protected void Update()

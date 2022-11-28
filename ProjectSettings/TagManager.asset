@@ -15,8 +15,8 @@ TagManager:
   - Object
   - Move
   - IntObject
-  - Before
-  - After
+  - 
+  - 
   - Wall
   - Particle
   - 
