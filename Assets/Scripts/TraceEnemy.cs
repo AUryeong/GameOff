@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
+using DG.Tweening;
+using UnityEditorInternal;
 
 [System.Serializable]
 public class Node
@@ -17,14 +20,46 @@ public class Node
 
 public class TraceEnemy : BaseEnemy
 {
+    public float moveDelay;
+
     public Vector2Int bottomLeft, topRight, startPos, targetPos;
     public List<Node> FinalNodeList;
 
-    int sizeX, sizeY;
-    Node[,] NodeArray;
-    Node StartNode, TargetNode, CurNode;
-    List<Node> OpenList, ClosedList;
+    private bool canReTrace;
 
+    private int sizeX, sizeY;
+    private Node[,] NodeArray;
+    private Node StartNode, TargetNode, CurNode;
+    private List<Node> OpenList, ClosedList;
+
+    private void Start()
+    {
+        StartCoroutine(TracingStart());
+    }
+
+    private IEnumerator TracingStart()
+    {
+        Vector3 playerPos = Player.Instance.transform.position;
+        targetPos = new Vector2Int((int)(playerPos.x + 0.5f), (int)(playerPos.y + 0.5f));
+        startPos = new Vector2Int((int)(transform.position.x + 0.5f), (int)(transform.position.y + 0.5f));
+
+        PathFinding();
+
+        canReTrace = false;
+        StartCoroutine(Tracing());
+        yield return new WaitForSeconds(1);
+        canReTrace = true;
+    }
+    private IEnumerator Tracing()
+    {
+        foreach (Node node in FinalNodeList)
+        {
+            transform.DOMove(new Vector2(node.x - 0.5f, node.y - 0.5f), moveDelay).SetEase(Ease.Linear);
+            yield return new WaitForSeconds(moveDelay);
+            if (canReTrace) break;
+        }
+        StartCoroutine(TracingStart());
+    }
 
     public void PathFinding()
     {
@@ -39,7 +74,9 @@ public class TraceEnemy : BaseEnemy
             {
                 bool isWall = false;
                 foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
-                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall")) isWall = true;
+                    if (col.gameObject.layer == LayerMask.NameToLayer("Wall")
+                        && col.gameObject.layer == LayerMask.NameToLayer("Object")
+                       && col.gameObject.layer == LayerMask.NameToLayer("IntObject")) isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
@@ -78,7 +115,6 @@ public class TraceEnemy : BaseEnemy
                 FinalNodeList.Add(StartNode);
                 FinalNodeList.Reverse();
 
-                for (int i = 0; i < FinalNodeList.Count; i++) print(i + "¹øÂ°´Â " + FinalNodeList[i].x + ", " + FinalNodeList[i].y);
                 return;
             }
 

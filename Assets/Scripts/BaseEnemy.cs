@@ -6,7 +6,8 @@ using System.ComponentModel;
 
 public class BaseEnemy : MonoBehaviour, IInteractiveObj
 {
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
+    protected bool dead;
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -17,6 +18,9 @@ public class BaseEnemy : MonoBehaviour, IInteractiveObj
     }
     protected virtual void Killed()
     {
+        if (dead) return;
+
+        dead = true;
         Instantiate(GameManager.Instance.enemyKilledParticle, transform.position, Quaternion.identity);
         spriteRenderer.DOFade(0, 1).OnComplete(() => Destroy(gameObject));
 

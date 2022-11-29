@@ -4,11 +4,11 @@ using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
 
-public class ProwlEnemy : BaseEnemy
+public class ProwlEnemy : TraceEnemy
 {
-    public Vector2[] targetPos;
+    public Vector2[] prowlPos;
     public bool Loop;
-    public float moveDelay;
+    public float prowlMoveDelay;
 
     private bool isLooping = false;
     private bool moving = true;
@@ -21,7 +21,7 @@ public class ProwlEnemy : BaseEnemy
     {
         while (moving)
         {
-            if (moveIndex >= targetPos.Length || moveIndex < 0)
+            if (moveIndex >= prowlPos.Length || moveIndex < 0)
             {
                 if (Loop)
                 {
@@ -34,10 +34,10 @@ public class ProwlEnemy : BaseEnemy
                 }
             }
 
-            Vector3 pos = posComparator(transform.position, targetPos[moveIndex]);
+            Vector3 pos = posComparator(transform.position, prowlPos[moveIndex]);
             if (pos != Vector3.zero)
             {
-                transform.DOMove(transform.position + pos, moveDelay).SetEase(Ease.Linear);
+                transform.DOMove(transform.position + pos, prowlMoveDelay).SetEase(Ease.Linear);
             }
             else
             {
@@ -45,7 +45,7 @@ public class ProwlEnemy : BaseEnemy
                 continue;
             }
 
-            yield return new WaitForSeconds(moveDelay);
+            yield return new WaitForSeconds(prowlMoveDelay);
         }
     }
 
