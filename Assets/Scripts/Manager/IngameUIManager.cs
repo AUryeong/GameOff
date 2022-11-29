@@ -45,8 +45,7 @@ public class IngameUIManager : Singleton<IngameUIManager>
     {
         killEnemyCount = 0;
         gaugeBar.fillAmount = 0;
-        //maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
-        maxEnemyCount = 3;
+        maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
 
         if (effectRawImages != null && effectRawImages.Length > 0)
             for (int i = 0; i < effectRawImages.Length; i++)

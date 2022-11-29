@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
 {
     public ParticleSystem enemyKilledParticle;
     public int nowStage = 1;
+    public int killedEnemyCount = 0;
     [SerializeField] protected Vector3 afterPos;
 
     private void Start()
