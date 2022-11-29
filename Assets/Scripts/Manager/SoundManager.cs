@@ -11,7 +11,7 @@ public enum SoundType
     END
 }
 
-public class SoundManager : Singleton<SoundManager>
+public class SoundManager : SingletonDontDestroy<SoundManager>
 {
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
     public Dictionary<SoundType, AudioSource> audioSources = new Dictionary<SoundType, AudioSource>();
@@ -22,11 +22,8 @@ public class SoundManager : Singleton<SoundManager>
     public Slider catSlider;
 
     private Image mySelfImage;
-    protected override void Awake()
+    public override void OnCreate()
     {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
-
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds/");
         foreach (AudioClip clip in clips)
         {

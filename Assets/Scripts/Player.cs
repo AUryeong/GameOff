@@ -13,7 +13,7 @@ public enum Direction
 
 public class Player : Singleton<Player>
 {
-    protected bool isMoving = false;
+    public bool isMoving = false;
     protected Direction direction;
 
     protected readonly float moveTileDuration = 0.2f;
@@ -21,6 +21,8 @@ public class Player : Singleton<Player>
     private float intCooldown = 1;
     protected void Update()
     {
+        if (!InGameManager.Instance.isControllable) return;
+
         Move();
         CheckInt();
         intCooldown -= Time.deltaTime;

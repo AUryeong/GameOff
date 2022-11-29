@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
 
 public class UIManager : Singleton<UIManager>
 {
     public Image forFadeBlackScreen;
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
+    protected Canvas canvas;
     public void BlackScreenFade(float startAlpha, float endAlpha, float time, bool isLoop = true)
     {
         forFadeBlackScreen.color = new Color(0, 0, 0, startAlpha);
