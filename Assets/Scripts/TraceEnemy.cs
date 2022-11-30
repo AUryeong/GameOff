@@ -54,7 +54,9 @@ public class TraceEnemy : BaseEnemy
     {
         foreach (Node node in FinalNodeList)
         {
-            transform.DOMove(new Vector2(node.x - 0.5f, node.y - 0.5f), moveDelay).SetEase(Ease.Linear);
+            Vector2 vec = new Vector2(node.x - 0.5f, node.y - 0.5f);
+            if ((Vector2)transform.position == vec) continue;
+            transform.DOMove(vec, moveDelay).SetEase(Ease.Linear);
             yield return new WaitForSeconds(moveDelay);
             if (canReTrace) break;
         }
