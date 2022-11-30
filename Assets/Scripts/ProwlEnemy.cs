@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class ProwlEnemy : TraceEnemy
 {
@@ -13,9 +14,21 @@ public class ProwlEnemy : TraceEnemy
     private bool isLooping = false;
     private bool moving = true;
     private int moveIndex = 1;
+
+    private bool isDetectedPlayer;
+    private Coroutine prowl;
+
+    protected override void Update()
+    {
+        base.Update();
+    }
+    protected override bool isDetecting()
+    {
+        return isDetectedPlayer && GameManager.Instance.nowTracingEnemy != this;
+    }
     private void Start()
     {
-        StartCoroutine(ProwlCoroutine());
+        prowl = StartCoroutine(ProwlCoroutine());
     }
     private IEnumerator ProwlCoroutine()
     {
@@ -49,15 +62,19 @@ public class ProwlEnemy : TraceEnemy
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Player>())
+        {
+            StopCoroutine(prowl);
+            isDetectedPlayer = true;
+        }
+    }
+
     private Vector3 posComparator(Vector3 pos1, Vector3 pos2)
     {
         Vector3 returnVector = Vector3.Normalize(pos1 - pos2) * -1;
 
         return returnVector;
-    }
-    protected override void Killed()
-    {
-        base.Killed();
-        moving = false;
     }
 }

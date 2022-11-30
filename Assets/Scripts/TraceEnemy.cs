@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
 using UnityEditorInternal;
+using UnityEngine.Rendering;
 
 [System.Serializable]
 public class Node
@@ -18,7 +19,7 @@ public class Node
     public int F { get { return G + H; } }
 }
 
-public class TraceEnemy : BaseEnemy
+public class TraceEnemy : MonoBehaviour
 {
     public float moveDelay;
 
@@ -26,15 +27,26 @@ public class TraceEnemy : BaseEnemy
     public List<Node> FinalNodeList;
 
     private bool canReTrace;
+    private bool TraceStart;
 
     private int sizeX, sizeY;
     private Node[,] NodeArray;
     private Node StartNode, TargetNode, CurNode;
     private List<Node> OpenList, ClosedList;
 
-    private void Start()
+    protected virtual void Update()
     {
-        StartCoroutine(TracingStart());
+        if (isDetecting() && !TraceStart)
+        {
+            TraceStart = true;
+            GameManager.Instance.nowTracingEnemy = this;
+            StartCoroutine(TracingStart());
+        }
+    }
+
+    protected virtual bool isDetecting()
+    {
+        return GameManager.Instance.nowTracingEnemy != this && Vector2.Distance(Player.Instance.transform.position, transform.position) <= 1.5f;
     }
 
     private IEnumerator TracingStart()
