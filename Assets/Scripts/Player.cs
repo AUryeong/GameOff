@@ -19,6 +19,17 @@ public class Player : Singleton<Player>
     protected readonly float moveTileDuration = 0.2f;
 
     private float intCooldown = 1;
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Instance != this)
+        {
+            Instance.transform.position = transform.position;
+            Destroy(gameObject);
+        }
+        else if (GameManager.Instance.nowStage == 5)
+            DontDestroyOnLoad(gameObject);
+    }
     protected void Update()
     {
         if (!InGameManager.Instance.isControllable) return;
@@ -44,7 +55,6 @@ public class Player : Singleton<Player>
     protected void Move()
     {
         if (isMoving) return;
-
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             direction = Direction.UP;

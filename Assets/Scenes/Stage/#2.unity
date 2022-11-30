@@ -10217,13 +10217,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc193d7d5be6ea4eb5271d5f8f5364d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos:
-  - {x: -17.5, y: 22.5}
-  - {x: -14.5, y: 22.5}
-  - {x: -14.5, y: 19.5}
-  - {x: -17.5, y: 19.5}
-  Loop: 0
   moveDelay: 0.4
+  bottomLeft: {x: 0, y: 0}
+  topRight: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  FinalNodeList: []
+  prowlPos: []
+  Loop: 0
+  prowlMoveDelay: 0
 --- !u!212 &1568288960
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10883,13 +10885,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc193d7d5be6ea4eb5271d5f8f5364d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos:
-  - {x: 16.5, y: 22.5}
-  - {x: 16.5, y: 18.5}
-  - {x: 15.5, y: 18.5}
-  - {x: 15.5, y: 22.5}
-  Loop: 0
   moveDelay: 0.4
+  bottomLeft: {x: 0, y: 0}
+  topRight: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  FinalNodeList: []
+  prowlPos: []
+  Loop: 0
+  prowlMoveDelay: 0
 --- !u!212 &1730545460
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11975,13 +11979,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc193d7d5be6ea4eb5271d5f8f5364d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos:
-  - {x: -17.5, y: -2.5}
-  - {x: -13.5, y: -2.5}
-  - {x: -13.5, y: 2.5}
-  - {x: -17.5, y: 2.5}
-  Loop: 1
   moveDelay: 0.4
+  bottomLeft: {x: 0, y: 0}
+  topRight: {x: 0, y: 0}
+  startPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  FinalNodeList: []
+  prowlPos: []
+  Loop: 1
+  prowlMoveDelay: 0
 --- !u!212 &1870890063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12980,7 +12986,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyKilledParticle: {fileID: 8757553081435559334}
   nowStage: 2
-  afterPos: {x: -0.5, y: 3.5, z: 0}
+  killedEnemyCount: 0
+  afterPos: {x: -0.5, y: 1.5, z: 0}
 --- !u!4 &2132988052
 Transform:
   m_ObjectHideFlags: 0

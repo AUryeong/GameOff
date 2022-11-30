@@ -9,6 +9,14 @@ public class UIManager : Singleton<UIManager>
 {
     public Image forFadeBlackScreen;
     protected Canvas canvas;
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Instance != this)
+            Destroy(gameObject);
+        else if (GameManager.Instance.nowStage == 5)
+            DontDestroyOnLoad(gameObject);
+    }
     public void BlackScreenFade(float startAlpha, float endAlpha, float time, bool isLoop = true)
     {
         forFadeBlackScreen.color = new Color(0, 0, 0, startAlpha);

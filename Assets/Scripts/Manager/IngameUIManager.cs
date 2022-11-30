@@ -10,7 +10,14 @@ public class IngameUIManager : Singleton<IngameUIManager>
 {
 
     protected int maxEnemyCount;
-    protected int killEnemyCount;
+    public int killEnemyCount;
+    public bool isClear
+    {
+        get
+        {
+            return maxEnemyCount <= killEnemyCount;
+        }
+    }
 
     [Header("´ëÈ­")]
     [SerializeField] TextMeshProUGUI talkText;
@@ -41,6 +48,15 @@ public class IngameUIManager : Singleton<IngameUIManager>
     [SerializeField] Image princessImage;
     protected float stopImageDuration = 2;
     protected float fadeDuration = 1;
+    protected override void Awake()
+    {
+        base.Awake();
+        if (Instance != this)
+            Destroy(gameObject);
+        else if (GameManager.Instance.nowStage == 5)
+            DontDestroyOnLoad(gameObject);
+    }
+
     protected void Start()
     {
         killEnemyCount = 0;
@@ -53,6 +69,12 @@ public class IngameUIManager : Singleton<IngameUIManager>
 
         if (princessImage != null)
             StartCoroutine(PrincessImageCoroutine());
+
+        talkText.DOFade(0, talkFadeDuration).SetDelay(1)
+            .OnComplete(() =>
+            {
+                talkText.gameObject.SetActive(false);
+            });
     }
 
     IEnumerator PrincessImageCoroutine()

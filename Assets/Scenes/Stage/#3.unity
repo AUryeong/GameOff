@@ -2154,7 +2154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyKilledParticle: {fileID: 7031793485700041980}
   nowStage: 3
-  afterPos: {x: -0.5, y: 1.5, z: 0}
+  killedEnemyCount: 0
+  afterPos: {x: -0.5, y: 3.5, z: 0}
 --- !u!4 &631896854
 Transform:
   m_ObjectHideFlags: 0

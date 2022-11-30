@@ -14,27 +14,47 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         UIManager.Instance.BlackScreenFade(0.8f, 0, 0.7f);
+        if (InGameManager.Instance.clearStage > nowStage)
+        {
+            foreach (var obj in FindObjectsOfType<BaseEnemy>())
+                obj.gameObject.SetActive(false);
+        }
     }
 
     public void BeforeStage()
     {
-        DOTween.KillAll();
-        SceneManager.sceneLoaded += DisableEnemy;
-        SceneManager.LoadScene("#" + --nowStage);
+        if (nowStage == 1)
+        {
+            if (InGameManager.Instance.clearStage >= 5)
+            {
+                DOTween.KillAll();
+                SceneManager.sceneLoaded += DisableEnemy;
+                SceneManager.LoadScene("#6");
+            }
+        }
+        else
+        {
+            if (nowStage == 5)
+                if (!IngameUIManager.Instance.isClear)
+                    return;
+            if (!IngameUIManager.Instance.isClear && IngameUIManager.Instance.killEnemyCount != 0)
+                return;
+            DOTween.KillAll();
+            SceneManager.sceneLoaded += DisableEnemy;
+            SceneManager.LoadScene("#" + --nowStage);
+        }
     }
 
     private void DisableEnemy(Scene arg0, LoadSceneMode arg1)
     {
-        foreach (var obj in FindObjectsOfType<BaseEnemy>())
-            obj.gameObject.SetActive(false);
-
-        Player.Instance.transform.position = Instance.afterPos;
+        Player.Instance.isMoving = false;
+        Player.Instance.transform.position = afterPos;
         SceneManager.sceneLoaded -= DisableEnemy;
     }
 
     public void AfterStage()
     {
-        if (IngameUIManager.Instance.toParticleGauge >= 1 || InGameManager.Instance.clearStage > nowStage)
+        if (IngameUIManager.Instance.isClear || InGameManager.Instance.clearStage > nowStage)
         {
             DOTween.KillAll();
             SceneManager.LoadScene("#" + ++nowStage);
