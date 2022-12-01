@@ -15,6 +15,8 @@ public class IngameUIManager : Singleton<IngameUIManager>
     {
         get
         {
+            if(maxEnemyCount == 0)
+                maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
             return maxEnemyCount <= killEnemyCount;
         }
     }
@@ -61,7 +63,8 @@ public class IngameUIManager : Singleton<IngameUIManager>
     {
         killEnemyCount = 0;
         gaugeBar.fillAmount = 0;
-        maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
+        if (maxEnemyCount == 0)
+            maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
 
         if (effectRawImages != null && effectRawImages.Length > 0)
             for (int i = 0; i < effectRawImages.Length; i++)
@@ -79,10 +82,11 @@ public class IngameUIManager : Singleton<IngameUIManager>
 
     IEnumerator PrincessImageCoroutine()
     {
+        princessImage.color = Color.black;
+        princessImage.DOColor(Color.white, 1);
         princessImage.gameObject.SetActive(true);
         InGameManager.Instance.isControllable = false;
-
-        yield return new WaitForSeconds(stopImageDuration);
+        yield return new WaitForSeconds(stopImageDuration + 1);
         while (!Input.anyKeyDown) yield return null;
 
         princessImage.DOFade(0, fadeDuration).OnComplete(() =>

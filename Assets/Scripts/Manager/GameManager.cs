@@ -8,7 +8,6 @@ public class GameManager : Singleton<GameManager>
 {
     public ParticleSystem enemyKilledParticle;
     public int nowStage = 1;
-    public int killedEnemyCount = 0;
     [SerializeField] protected Vector3 afterPos;
 
     public int tracingRoomChangeCount;
@@ -32,11 +31,12 @@ public class GameManager : Singleton<GameManager>
         enemies = FindObjectsOfType<TraceEnemy>();
 
         UIManager.Instance.BlackScreenFade(0.8f, 0, 0.7f);
-        if (InGameManager.Instance.clearStage > nowStage)
+        Debug.Log((InGameManager.Instance.clearStage == 5) + " , " + (IngameUIManager.Instance.isClear));
+        if (InGameManager.Instance.clearStage > nowStage || ((InGameManager.Instance.clearStage == 5) && IngameUIManager.Instance.isClear))
         {
             foreach (var obj in FindObjectsOfType<BaseEnemy>())
             {
-                if (InGameManager.Instance.clearStage >= 5)
+                if (InGameManager.Instance.clearStage >= 5 && nowStage != 5)
                 {
                     obj.GetComponent<SpriteRenderer>().sprite = killBodySprites[Random.Range(0, killBodySprites.Length)];
                     obj.dead = true;
