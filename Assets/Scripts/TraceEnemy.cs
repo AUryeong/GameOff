@@ -27,18 +27,22 @@ public class TraceEnemy : MonoBehaviour
     public List<Node> FinalNodeList;
     public Coroutine Coroutine;
     public bool TraceStart;
+    protected Direction direction;
 
     private bool canReTrace;
     private IEnumerator traceStart;
     private IEnumerator trace;
+    protected SpriteRenderer SpriteRenderer;
+    private Animator animator;
 
     private int sizeX, sizeY;
     private Node[,] NodeArray;
     private Node StartNode, TargetNode, CurNode;
     private List<Node> OpenList, ClosedList;
-    private void Start()
+    protected virtual void Start()
     {
-        traceStart = TracingStart();
+        animator = GetComponent<Animator>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
     }
     protected virtual void Update()
     {
@@ -48,6 +52,16 @@ public class TraceEnemy : MonoBehaviour
             GameManager.Instance.nowTracingEnemy = this;
             StartCoroutine(TracingStart());
         }
+        if (direction == Direction.RIGHT)
+        {
+            SpriteRenderer.flipX = true;
+        }
+        if (direction == Direction.LEFT)
+        {
+            SpriteRenderer.flipX = false;
+        }
+
+        animator.SetBool(0, TraceStart);
     }
 
     protected virtual bool isDetecting()
@@ -58,8 +72,8 @@ public class TraceEnemy : MonoBehaviour
     public IEnumerator TracingStart()
     {
         Vector3 playerPos = Player.Instance.transform.position;
-        targetPos = new Vector2Int((int)(playerPos.x ), (int)(playerPos.y ));
-        startPos = new Vector2Int((int)(transform.position.x ), (int)(transform.position.y ));
+        targetPos = new Vector2Int((int)(playerPos.x), (int)(playerPos.y));
+        startPos = new Vector2Int((int)(transform.position.x), (int)(transform.position.y));
 
         PathFinding();
 
@@ -72,16 +86,17 @@ public class TraceEnemy : MonoBehaviour
     {
         foreach (Node node in FinalNodeList)
         {
-            Vector2 vec = new Vector2(node.x, node.y );
+            Vector2 vec = new Vector2(node.x, node.y);
             if ((Vector2)transform.position == vec) continue;
 
+            direction = VectorToDirection(vec - (Vector2)transform.position);
             transform.DOMove(vec, moveDelay).SetEase(Ease.Linear);
             yield return new WaitForSeconds(moveDelay);
 
             if (canReTrace) break;
         }
 
-        while ( Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f) yield return null;
+        while (Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f) yield return null;
         Coroutine = StartCoroutine(TracingStart());
     }
 
@@ -97,7 +112,7 @@ public class TraceEnemy : MonoBehaviour
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x , j + bottomLeft.y ), 0.1f))
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.1f))
                     if (col.gameObject.layer == LayerMask.NameToLayer("Wall")
                         || col.gameObject.layer == LayerMask.NameToLayer("Object")
                        || col.gameObject.layer == LayerMask.NameToLayer("IntObject")) isWall = true;
@@ -177,6 +192,35 @@ public class TraceEnemy : MonoBehaviour
     {
         if (FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
                 Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
+    }
+    protected Vector2 DirectionToVector(Direction direction)
+    {
+        switch (direction)
+        {
+            case Direction.UP:
+                return Vector2.up;
+            case Direction.RIGHT:
+                return Vector2.right;
+            case Direction.DOWN:
+                return Vector2.down;
+            case Direction.LEFT:
+                return Vector2.left;
+            default:
+                return Vector2.zero;
+        }
+    }
+    protected Direction VectorToDirection(Vector2 vec)
+    {
+        if (vec.x < 0)
+            return Direction.LEFT;
+        else if (vec.x > 0)
+            return Direction.RIGHT;
+        else if (vec.y < 0)
+            return Direction.DOWN;
+        else if (vec.y > 0)
+            return Direction.UP;
+        else
+            return 0;
     }
 
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3878302707934602055}
   - component: {fileID: 3895711087543790964}
   - component: {fileID: 5274646605652740663}
+  - component: {fileID: 4238904163601977133}
   m_Layer: 0
   m_Name: TraceEnemy
   m_TagString: Untagged
@@ -73,8 +74,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0.36320752, b: 0.36320752, a: 1}
+  m_Sprite: {fileID: 21300000, guid: e86d6af920356bc4eae6194d3e44b9f5, type: 3}
+  m_Color: {r: 0.9339623, g: 0.7885814, b: 0.7885814, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -129,3 +130,22 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0}
   FinalNodeList: []
   TraceStart: 0
+--- !u!95 &4238904163601977133
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3296805193866952231}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c5b755a4a3e81d146a433c3c8fd57f74, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
