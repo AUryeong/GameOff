@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using DG.Tweening;
-using UnityEditorInternal;
+using System.Linq;
+using System;
 
 [System.Serializable]
 public class Node
@@ -18,26 +19,43 @@ public class Node
     public int F { get { return G + H; } }
 }
 
-public class TraceEnemy : BaseEnemy
+public class TraceEnemy : MonoBehaviour
 {
     public float moveDelay;
 
     public Vector2Int bottomLeft, topRight, startPos, targetPos;
     public List<Node> FinalNodeList;
+    public Coroutine Coroutine;
+    public bool TraceStart;
 
     private bool canReTrace;
+    private IEnumerator traceStart;
+    private IEnumerator trace;
 
     private int sizeX, sizeY;
     private Node[,] NodeArray;
     private Node StartNode, TargetNode, CurNode;
     private List<Node> OpenList, ClosedList;
-
     private void Start()
     {
-        StartCoroutine(TracingStart());
+        traceStart = TracingStart();
+    }
+    protected virtual void Update()
+    {
+        if (!TraceStart && isDetecting())
+        {
+            TraceStart = true;
+            GameManager.Instance.nowTracingEnemy = this;
+            StartCoroutine(TracingStart());
+        }
     }
 
-    private IEnumerator TracingStart()
+    protected virtual bool isDetecting()
+    {
+        return GameManager.Instance.nowTracingEnemy != this && Vector2.Distance(Player.Instance.transform.position, transform.position) <= 1.5f;
+    }
+
+    public IEnumerator TracingStart()
     {
         Vector3 playerPos = Player.Instance.transform.position;
         targetPos = new Vector2Int((int)(playerPos.x + 0.5f), (int)(playerPos.y + 0.5f));
@@ -46,7 +64,7 @@ public class TraceEnemy : BaseEnemy
         PathFinding();
 
         canReTrace = false;
-        StartCoroutine(Tracing());
+        Coroutine = StartCoroutine(Tracing());
         yield return new WaitForSeconds(1);
         canReTrace = true;
     }
@@ -56,11 +74,15 @@ public class TraceEnemy : BaseEnemy
         {
             Vector2 vec = new Vector2(node.x - 0.5f, node.y - 0.5f);
             if ((Vector2)transform.position == vec) continue;
+
             transform.DOMove(vec, moveDelay).SetEase(Ease.Linear);
             yield return new WaitForSeconds(moveDelay);
+
             if (canReTrace) break;
         }
-        StartCoroutine(TracingStart());
+
+        while (Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f) yield return null;
+        Coroutine = StartCoroutine(TracingStart());
     }
 
     public void PathFinding()

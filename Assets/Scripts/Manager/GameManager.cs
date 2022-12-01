@@ -11,13 +11,69 @@ public class GameManager : Singleton<GameManager>
     public int killedEnemyCount = 0;
     [SerializeField] protected Vector3 afterPos;
 
+    public int tracingRoomChangeCount;
+    public TraceEnemy nowTracingEnemy
+    {
+        get { return _nowTracingEnemy; }
+        set
+        {
+            EnemyActive();
+            _nowTracingEnemy = value;
+        }
+    }
+    [SerializeField]
+    private TraceEnemy _nowTracingEnemy;
+    private TraceEnemy[] enemies;
+    private float tracingTime;
     private void Start()
     {
+        enemies = FindObjectsOfType<TraceEnemy>();
+
         UIManager.Instance.BlackScreenFade(0.8f, 0, 0.7f);
         if (InGameManager.Instance.clearStage > nowStage)
         {
             foreach (var obj in FindObjectsOfType<BaseEnemy>())
                 obj.gameObject.SetActive(false);
+        }
+    }
+    private void Update()
+    {
+        TracingEnemyFunc();
+    }
+    private void EnemyActive()
+    {
+        if (nowTracingEnemy == null)
+        {
+            foreach (var obj in enemies)
+            {
+                obj.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var obj in enemies)
+            {
+                if (obj != nowTracingEnemy)
+                {
+                    obj.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+    private void TracingEnemyFunc()
+    {
+        if (nowTracingEnemy != null)
+        {
+            if (tracingTime >= 65 || tracingRoomChangeCount >= 10)
+            {
+                tracingTime = 0;
+                tracingRoomChangeCount = 0;
+
+
+                Destroy(nowTracingEnemy.gameObject);
+                nowTracingEnemy = null;
+            }
+            tracingTime += Time.deltaTime;
         }
     }
 
