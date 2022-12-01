@@ -66,7 +66,7 @@ public class TraceEnemy : MonoBehaviour
 
     protected virtual bool isDetecting()
     {
-        return GameManager.Instance.nowTracingEnemy != this && Vector2.Distance(Player.Instance.transform.position, transform.position) <= 1.5f;
+        return GameManager.Instance.nowTracingEnemy != this && Vector2.Distance(Player.Instance.transform.position, transform.position) <= 2f;
     }
 
     public IEnumerator TracingStart()

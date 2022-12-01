@@ -79,7 +79,8 @@ public class GameManager : Singleton<GameManager>
     {
         if (nowTracingEnemy != null)
         {
-            if (tracingTime >= 65 || tracingRoomChangeCount >= 10)
+            tracingTime += Time.deltaTime;
+            if (tracingTime >= 30 || tracingRoomChangeCount >= 5)
             {
                 tracingTime = 0;
                 tracingRoomChangeCount = 0;
@@ -88,7 +89,6 @@ public class GameManager : Singleton<GameManager>
                 Destroy(nowTracingEnemy.gameObject);
                 nowTracingEnemy = null;
             }
-            tracingTime += Time.deltaTime;
         }
     }
 

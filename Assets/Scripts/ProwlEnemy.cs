@@ -36,7 +36,7 @@ public class ProwlEnemy : TraceEnemy
 
         if (!isDetectedPlayer)
         {
-            RaycastHit2D ray = Physics2D.Raycast(transform.position, DirectionToVector(direction), 1, LayerMask.GetMask("Player"));
+            RaycastHit2D ray = Physics2D.Raycast(transform.position, DirectionToVector(direction), 2, LayerMask.GetMask("Player"));
             if (ray.collider != null)
             {
                 StopCoroutine(prowl);
