@@ -21,7 +21,7 @@ public class BaseEnemy : MonoBehaviour, IInteractiveObj
         if (dead) return;
 
         dead = true;
-        IngameUIManager.Instance.killEnemyCount++;
+        IngameUIManager.Instance.KillEnemy();
         GameObject obj = Instantiate(GameManager.Instance.enemyKilledParticle, transform.position, Quaternion.identity).gameObject;
         obj.SetActive(true);
         Destroy(obj, 10);

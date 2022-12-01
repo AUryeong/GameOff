@@ -19,6 +19,8 @@ public class Player : Singleton<Player>
     protected readonly float moveTileDuration = 0.2f;
 
     private float intCooldown = 1;
+    private float talkNoMoveDuration = 0;
+    private float talkMoveDuraiton = 0;
     SpriteRenderer spriteRenderer;
     Animator animator;
     protected override void Awake()
@@ -40,7 +42,36 @@ public class Player : Singleton<Player>
 
         Move();
         CheckInt();
+        CheckTalk();
         intCooldown -= Time.deltaTime;
+    }
+
+    protected void CheckTalk()
+    {
+        if (!isMoving)
+            talkNoMoveDuration += Time.deltaTime;
+        if (talkNoMoveDuration >= 15)
+        {
+            talkNoMoveDuration -= 15;
+            IngameUIManager.Instance.ShowText("For princess.");
+        }
+        talkMoveDuraiton += Time.deltaTime;
+        if (talkMoveDuraiton >= 60)
+        {
+            talkMoveDuraiton -= 60;
+            switch (Random.Range(1, 4))
+            {
+                case 1:
+                    IngameUIManager.Instance.ShowText("The time has come.");
+                    break;
+                case 2:
+                    IngameUIManager.Instance.ShowText("Though I be damned");
+                    break;
+                case 3:
+                    IngameUIManager.Instance.ShowText("Let the hunt begin.");
+                    break;
+            }
+        }
     }
 
     protected void CheckInt()
@@ -87,6 +118,7 @@ public class Player : Singleton<Player>
         RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, GetDirection(), 1, LayerMask.GetMask("Object", "IntObject", "Wall"));
         if (raycastHit2D.collider == null)
         {
+            talkNoMoveDuration = 0;
             isMoving = true;
             animator.SetBool("isWalking", true);
             transform.DOLocalMove(GetDirection(), moveTileDuration).SetRelative().OnComplete(() =>
