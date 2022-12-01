@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 13.5, y: -3.5, z: 0}
+  targetPos: {x: 14, y: -3, z: 0}
 --- !u!19719996 &106667564
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -14.5, y: -5.5, z: 0}
+  targetPos: {x: -14, y: -5, z: 0}
 --- !u!19719996 &135967579
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1299,7 +1299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339632454}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1611236012}
@@ -1424,6 +1424,7 @@ MonoBehaviour:
   afterPos: {x: -0.5, y: 1.5, z: 0}
   tracingRoomChangeCount: 0
   _nowTracingEnemy: {fileID: 0}
+  killBodySprites: []
 --- !u!4 &382602771
 Transform:
   m_ObjectHideFlags: 0
@@ -1567,7 +1568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -0.5, y: -3.5, z: 0}
+  targetPos: {x: 0, y: -3, z: 0}
 --- !u!19719996 &469015944
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1938,7 +1939,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573440022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 245861747}
@@ -2103,7 +2104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -1.5, y: 11.5, z: 0}
+  targetPos: {x: -1, y: 11, z: 0}
 --- !u!19719996 &612039579
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2878,7 +2879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 15.5, y: 11.5, z: 0}
+  targetPos: {x: 16, y: 12, z: 0}
 --- !u!19719996 &671310061
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3230,7 +3231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -15.5, y: 11.5, z: 0}
+  targetPos: {x: -15, y: 12, z: 0}
 --- !u!19719996 &746354817
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3488,7 +3489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -1.5, y: 15.5, z: 0}
+  targetPos: {x: -1, y: 16, z: 0}
 --- !u!19719996 &884926550
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3671,7 +3672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -14.5, y: 15.5, z: 0}
+  targetPos: {x: -14, y: 16, z: 0}
 --- !u!19719996 &957027855
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4412,7 +4413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 0.5, y: -3.5, z: 0}
+  targetPos: {x: 1, y: -3, z: 0}
 --- !u!19719996 &1369102609
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4595,7 +4596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 1.5, y: 15.5, z: 0}
+  targetPos: {x: 2, y: 16, z: 0}
 --- !u!19719996 &1494752369
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5975,7 +5976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -15.5, y: -3.5, z: 0}
+  targetPos: {x: -15, y: -3, z: 0}
 --- !u!19719996 &1862600683
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -6158,7 +6159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 14.5, y: 15.5, z: 0}
+  targetPos: {x: 15, y: 16, z: 0}
 --- !u!19719996 &1908582461
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -6525,7 +6526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -0.5, y: -1.5, z: 0}
+  targetPos: {x: 0, y: -1, z: 0}
 --- !u!19719996 &2066944153
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -7972,7 +7973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 15.5, y: -1.5, z: 0}
+  targetPos: {x: 16, y: -1, z: 0}
 --- !u!19719996 &2101891338
 TilemapCollider2D:
   m_ObjectHideFlags: 0

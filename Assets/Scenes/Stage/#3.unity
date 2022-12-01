@@ -160,7 +160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 46768016}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2096796571}
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -8.5, y: 1.5, z: 0}
+  targetPos: {x: -8, y: 2, z: 0}
 --- !u!19719996 &189364046
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -815,7 +815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 9.5, y: 1.5, z: 0}
+  targetPos: {x: 10, y: 2, z: 0}
 --- !u!19719996 &326190352
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -31.5, y: 13.5, z: 0}
+  targetPos: {x: -31, y: 14, z: 0}
 --- !u!19719996 &474791731
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1766,7 +1766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 28.5, y: 13.5, z: 0}
+  targetPos: {x: 29, y: 14, z: 0}
 --- !u!19719996 &521080809
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -7.5, y: 17.5, z: 0}
+  targetPos: {x: -7, y: 18, z: 0}
 --- !u!19719996 &629002235
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2158,6 +2158,7 @@ MonoBehaviour:
   afterPos: {x: -0.5, y: 3.5, z: 0}
   tracingRoomChangeCount: 0
   _nowTracingEnemy: {fileID: 0}
+  killBodySprites: []
 --- !u!4 &631896854
 Transform:
   m_ObjectHideFlags: 0
@@ -2218,7 +2219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 11.5, y: 17.5, z: 0}
+  targetPos: {x: 12, y: 18, z: 0}
 --- !u!19719996 &720112734
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2401,7 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 3.5, y: 1.5, z: 0}
+  targetPos: {x: 4, y: 2, z: 0}
 --- !u!19719996 &755814615
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -2656,7 +2657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -10.5, y: 17.5, z: 0}
+  targetPos: {x: -10, y: 18, z: 0}
 --- !u!19719996 &818412879
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3440,7 +3441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -8.5, y: 13.5, z: 0}
+  targetPos: {x: -8, y: 14, z: 0}
 --- !u!19719996 &879956296
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3759,7 +3760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 8.5, y: 17.5, z: 0}
+  targetPos: {x: 9, y: 18, z: 0}
 --- !u!19719996 &1070101428
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -3991,11 +3992,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4035,35 +4036,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[0].x
-      value: 31.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[0].y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[1].x
-      value: 31.5
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[1].y
-      value: 13.5
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[2].x
-      value: 30.5
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[2].y
-      value: 13.5
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[3].x
-      value: 30.5
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[3].y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895735, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_Name
@@ -4117,7 +4118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -27.5, y: 17.5, z: 0}
+  targetPos: {x: -27, y: 18, z: 0}
 --- !u!19719996 &1293239330
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5005,11 +5006,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.5
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895728, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5049,35 +5050,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[0].x
-      value: -31.5
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[0].y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[1].x
-      value: -28.5
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[1].y
-      value: 20.5
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[2].x
-      value: -28.5
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[2].y
-      value: 14.5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[3].x
-      value: -31.5
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895734, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: prowlPos.Array.data[3].y
-      value: 14.5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6627576057297895735, guid: 01c13694ef1c52e4e963ea43ac38a637, type: 3}
       propertyPath: m_Name
@@ -5131,7 +5132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 28.5, y: 17.5, z: 0}
+  targetPos: {x: 29, y: 18, z: 0}
 --- !u!19719996 &1456053052
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5314,7 +5315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: -2.5, y: 1.5, z: 0}
+  targetPos: {x: -2, y: 2, z: 0}
 --- !u!19719996 &1463224150
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -5497,7 +5498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9b706554c22c3c418aa422426864b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPos: {x: 9.5, y: 13.5, z: 0}
+  targetPos: {x: 10, y: 14, z: 0}
 --- !u!19719996 &1464880552
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -6106,7 +6107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1537239209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 945527817}
