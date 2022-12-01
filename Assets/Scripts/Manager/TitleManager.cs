@@ -31,6 +31,7 @@ public class TitleManager : MonoBehaviour
 
     public void GameStart()
     {
+        SoundManager.Instance.PlaySoundClip("001_ClockSound", SoundType.BGM);
         SceneManager.LoadScene("#1");
     }
 

@@ -131,6 +131,7 @@ public class Player : Singleton<Player>
     {
         if (collision != null && collision.GetComponent<TraceEnemy>() != null)
         {
+            SoundManager.Instance.PlaySoundClip("002_2_Man_Screaming", SoundType.SFX, 0.5f, Random.Range(0.7f, 1.3f));
             GameManager.Instance.GameOver();
         }
     }

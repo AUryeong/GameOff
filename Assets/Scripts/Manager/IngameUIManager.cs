@@ -15,7 +15,7 @@ public class IngameUIManager : Singleton<IngameUIManager>
     {
         get
         {
-            if(maxEnemyCount == 0)
+            if (maxEnemyCount == 0)
                 maxEnemyCount = FindObjectsOfType<BaseEnemy>().Length;
             return maxEnemyCount <= killEnemyCount;
         }
@@ -50,6 +50,13 @@ public class IngameUIManager : Singleton<IngameUIManager>
     [SerializeField] Image princessImage;
     protected float stopImageDuration = 2;
     protected float fadeDuration = 1;
+
+    private bool princessKilled;
+    private bool videoNoise;
+    private bool mumbleNoise;
+    private float sirenCooldown = 12;
+    private float mumbleCooldown = 12;
+    private float videoNoiseCooldown = 20;
     protected override void Awake()
     {
         base.Awake();
@@ -61,6 +68,7 @@ public class IngameUIManager : Singleton<IngameUIManager>
 
     protected void Start()
     {
+
         killEnemyCount = 0;
         gaugeBar.fillAmount = 0;
         if (maxEnemyCount == 0)
@@ -102,6 +110,35 @@ public class IngameUIManager : Singleton<IngameUIManager>
             FilterUpdate();
         if (noise != null)
             NoiseUpdate();
+        if (videoNoise)
+        {
+            videoNoiseCooldown -= Time.deltaTime;
+            if (videoNoiseCooldown <= 0)
+            {
+                videoNoiseCooldown = Random.Range(8, 22);
+                SoundManager.Instance.PlaySoundClip("006_Video_Noise", SoundType.SFX);
+            }
+        }
+        if (mumbleNoise)
+        {
+            mumbleCooldown -= Time.deltaTime;
+            if (mumbleCooldown <= 0)
+            {
+                mumbleCooldown = Random.Range(8, 22);
+                SoundManager.Instance.PlaySoundClip("007_Mumble", SoundType.SFX);
+            }
+        }
+        if (princessKilled)
+        {
+            sirenCooldown -= Time.deltaTime;
+            if (sirenCooldown <= 0)
+            {
+                sirenCooldown = Random.Range(10, 20);
+                SoundManager.Instance.PlaySoundClip("Siren", SoundType.SFX);
+            }
+        }
+
+
     }
     public void KillEnemy()
     {
@@ -119,6 +156,35 @@ public class IngameUIManager : Singleton<IngameUIManager>
                 break;
             case 0:
                 ShowText("To the next floor.");
+                break;
+        }
+        if (GameManager.Instance.nowStage == 3) videoNoise = true;
+        if (GameManager.Instance.nowStage == 4) mumbleNoise = true;
+        if (GameManager.Instance.nowStage == 5)
+        {
+            SoundManager.Instance.PlaySoundClip("002_Screaming", SoundType.SFX);
+            SoundManager.Instance.PlaySoundClip("Siren", SoundType.SFX);
+            princessKilled = true;
+        }
+        else
+        {
+            switch (Random.Range(0, 2))
+            {
+                case 0:
+                    SoundManager.Instance.PlaySoundClip("002_Screaming", SoundType.SFX,0.5f,Random.Range(0.7f,1.3f));
+                    break;
+                case 1:
+                    SoundManager.Instance.PlaySoundClip("002_2_Man_Screaming", SoundType.SFX, 0.5f, Random.Range(0.7f, 1.3f));
+                    break;
+            }
+        }
+        switch (Random.Range(0, 2))
+        {
+            case 0:
+                SoundManager.Instance.PlaySoundClip("Splat2", SoundType.SFX, 0.5f, Random.Range(0.7f, 1.3f));
+                break;
+            case 1:
+                SoundManager.Instance.PlaySoundClip("Splat3", SoundType.SFX, 0.5f, Random.Range(0.7f, 1.3f));
                 break;
         }
     }

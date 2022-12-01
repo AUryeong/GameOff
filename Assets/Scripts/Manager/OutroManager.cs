@@ -24,7 +24,8 @@ public class OutroManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         outroImage.color = Color.black;
         yield return new WaitForSeconds(1);
-        //TODO ÃÑ»ç¿îµå
+        //TODO ÃÑ»ç¿îµå °í¸¿´Ù...
+        SoundManager.Instance.PlaySoundClip("005_Outro_PistolSound", SoundType.SFX);
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("Title");
     }
