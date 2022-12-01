@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc193d7d5be6ea4eb5271d5f8f5364d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDelay: 0.4
+  moveDelay: 0.3
   bottomLeft: {x: -50, y: -50}
   topRight: {x: 50, y: 50}
   startPos: {x: 0, y: 0}
@@ -152,5 +152,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0

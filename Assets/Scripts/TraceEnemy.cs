@@ -58,8 +58,8 @@ public class TraceEnemy : MonoBehaviour
     public IEnumerator TracingStart()
     {
         Vector3 playerPos = Player.Instance.transform.position;
-        targetPos = new Vector2Int((int)(playerPos.x + 0.5f), (int)(playerPos.y + 0.5f));
-        startPos = new Vector2Int((int)(transform.position.x + 0.5f), (int)(transform.position.y + 0.5f));
+        targetPos = new Vector2Int((int)(playerPos.x ), (int)(playerPos.y ));
+        startPos = new Vector2Int((int)(transform.position.x ), (int)(transform.position.y ));
 
         PathFinding();
 
@@ -72,7 +72,7 @@ public class TraceEnemy : MonoBehaviour
     {
         foreach (Node node in FinalNodeList)
         {
-            Vector2 vec = new Vector2(node.x - 0.5f, node.y - 0.5f);
+            Vector2 vec = new Vector2(node.x, node.y );
             if ((Vector2)transform.position == vec) continue;
 
             transform.DOMove(vec, moveDelay).SetEase(Ease.Linear);
@@ -81,7 +81,7 @@ public class TraceEnemy : MonoBehaviour
             if (canReTrace) break;
         }
 
-        while (Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f || Vector3.Distance(transform.position, Player.Instance.transform.position) > 10f) yield return null;
+        while ( Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f) yield return null;
         Coroutine = StartCoroutine(TracingStart());
     }
 
@@ -97,7 +97,7 @@ public class TraceEnemy : MonoBehaviour
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x + 0.5f, j + bottomLeft.y + 0.5f), 0.4f))
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x , j + bottomLeft.y ), 0.1f))
                     if (col.gameObject.layer == LayerMask.NameToLayer("Wall")
                         || col.gameObject.layer == LayerMask.NameToLayer("Object")
                        || col.gameObject.layer == LayerMask.NameToLayer("IntObject")) isWall = true;
@@ -173,5 +173,10 @@ public class TraceEnemy : MonoBehaviour
     }
 
 
+    void OnDrawGizmos()
+    {
+        if (FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
+                Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
+    }
 
 }
