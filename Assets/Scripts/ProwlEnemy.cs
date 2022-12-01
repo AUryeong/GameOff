@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
 using static UnityEngine.Rendering.DebugUI.Table;
+using UnityEngine.Rendering.Universal;
 
 public class ProwlEnemy : TraceEnemy
 {
@@ -15,12 +16,23 @@ public class ProwlEnemy : TraceEnemy
     private bool moving = true;
     private int moveIndex = 1;
 
+    private Direction direction;
     private bool isDetectedPlayer;
     private Coroutine prowl;
 
     protected override void Update()
     {
         base.Update();
+
+        if (!isDetectedPlayer)
+        {
+            RaycastHit2D ray = Physics2D.Raycast(transform.position, DirectionToVector(direction), 1, LayerMask.GetMask("Player"));
+            if (ray.collider != null)
+            {
+                StopCoroutine(prowl);
+                isDetectedPlayer = true;
+            }
+        }
     }
     protected override bool isDetecting()
     {
@@ -51,6 +63,7 @@ public class ProwlEnemy : TraceEnemy
             if (pos != Vector3.zero)
             {
                 transform.DOMove(transform.position + pos, prowlMoveDelay).SetEase(Ease.Linear);
+                direction = VectorToDirection(pos);
             }
             else
             {
@@ -61,14 +74,34 @@ public class ProwlEnemy : TraceEnemy
             yield return new WaitForSeconds(prowlMoveDelay);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private Vector2 DirectionToVector(Direction direction)
     {
-        if (collision.GetComponent<Player>())
+        switch (direction)
         {
-            StopCoroutine(prowl);
-            isDetectedPlayer = true;
+            case Direction.UP:
+                return Vector2.up;
+            case Direction.RIGHT:
+                return Vector2.right;
+            case Direction.DOWN:
+                return Vector2.down;
+            case Direction.LEFT:
+                return Vector2.left;
+            default:
+                return Vector2.zero;
         }
+    }
+    private Direction VectorToDirection(Vector2 vec)
+    {
+        if (vec.x < 0)
+            return Direction.LEFT;
+        else if (vec.x > 0)
+            return Direction.RIGHT;
+        else if (vec.y < 0)
+            return Direction.DOWN;
+        else if (vec.y > 0)
+            return Direction.UP;
+        else
+            return 0;
     }
 
     private Vector3 posComparator(Vector3 pos1, Vector3 pos2)
