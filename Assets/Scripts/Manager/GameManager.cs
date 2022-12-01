@@ -17,8 +17,8 @@ public class GameManager : Singleton<GameManager>
         get { return _nowTracingEnemy; }
         set
         {
-            EnemyActive();
             _nowTracingEnemy = value;
+            EnemyActive();
         }
     }
     [SerializeField]
