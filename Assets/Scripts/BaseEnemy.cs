@@ -7,7 +7,7 @@ using System.ComponentModel;
 public class BaseEnemy : MonoBehaviour, IInteractiveObj
 {
     protected SpriteRenderer spriteRenderer;
-    protected bool dead;
+    public bool dead;
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
