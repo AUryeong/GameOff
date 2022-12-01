@@ -14,13 +14,25 @@ public class ProwlEnemy : TraceEnemy
     private bool moving = true;
     private int moveIndex = 1;
 
-    private Direction direction;
     private bool isDetectedPlayer;
     private Coroutine prowl;
 
     protected override void Update()
     {
-        base.Update();
+        if (!TraceStart && isDetecting())
+        {
+            TraceStart = true;
+            GameManager.Instance.nowTracingEnemy = this;
+            StartCoroutine(TracingStart());
+        }
+        if (direction == Direction.RIGHT)
+        {
+            SpriteRenderer.flipX = true;
+        }
+        if (direction == Direction.LEFT)
+        {
+            SpriteRenderer.flipX = false;
+        }
 
         if (!isDetectedPlayer)
         {
@@ -36,8 +48,9 @@ public class ProwlEnemy : TraceEnemy
     {
         return isDetectedPlayer && GameManager.Instance.nowTracingEnemy != this;
     }
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         prowl = StartCoroutine(ProwlCoroutine());
     }
     private IEnumerator ProwlCoroutine()
@@ -72,35 +85,7 @@ public class ProwlEnemy : TraceEnemy
             yield return new WaitForSeconds(prowlMoveDelay);
         }
     }
-    private Vector2 DirectionToVector(Direction direction)
-    {
-        switch (direction)
-        {
-            case Direction.UP:
-                return Vector2.up;
-            case Direction.RIGHT:
-                return Vector2.right;
-            case Direction.DOWN:
-                return Vector2.down;
-            case Direction.LEFT:
-                return Vector2.left;
-            default:
-                return Vector2.zero;
-        }
-    }
-    private Direction VectorToDirection(Vector2 vec)
-    {
-        if (vec.x < 0)
-            return Direction.LEFT;
-        else if (vec.x > 0)
-            return Direction.RIGHT;
-        else if (vec.y < 0)
-            return Direction.DOWN;
-        else if (vec.y > 0)
-            return Direction.UP;
-        else
-            return 0;
-    }
+
 
     private Vector3 posComparator(Vector3 pos1, Vector3 pos2)
     {
