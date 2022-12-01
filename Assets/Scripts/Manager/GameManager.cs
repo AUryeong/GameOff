@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
     private TraceEnemy _nowTracingEnemy;
     private TraceEnemy[] enemies;
     private float tracingTime;
+    [SerializeField]
+    private Sprite[] killBodySprites;
     private void Start()
     {
         enemies = FindObjectsOfType<TraceEnemy>();
@@ -33,7 +35,20 @@ public class GameManager : Singleton<GameManager>
         if (InGameManager.Instance.clearStage > nowStage)
         {
             foreach (var obj in FindObjectsOfType<BaseEnemy>())
+            {
+                if (InGameManager.Instance.clearStage >= 5)
+                {
+                    obj.GetComponent<SpriteRenderer>().sprite = killBodySprites[Random.Range(0, killBodySprites.Length)];
+                    obj.dead = true;
+                }
+                else
+                    obj.gameObject.SetActive(false);
+
+            }
+            foreach (var obj in FindObjectsOfType<TraceEnemy>())
+            {
                 obj.gameObject.SetActive(false);
+            }
         }
     }
     private void Update()

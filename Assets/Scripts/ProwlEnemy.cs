@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using DG.Tweening;
-using static UnityEngine.Rendering.DebugUI.Table;
-using UnityEngine.Rendering.Universal;
 
 public class ProwlEnemy : TraceEnemy
 {
