@@ -77,15 +77,20 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void GameOver()
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene("GameOver");
+    }
+
     public void BeforeStage()
     {
         if (nowStage == 1)
         {
             if (InGameManager.Instance.clearStage >= 5)
             {
-                DOTween.KillAll();
                 SceneManager.sceneLoaded += DisableEnemy;
-                SceneManager.LoadScene("#6");
+                GotoStage(6);
             }
         }
         else
@@ -95,25 +100,29 @@ public class GameManager : Singleton<GameManager>
                     return;
             if (!IngameUIManager.Instance.isClear && IngameUIManager.Instance.killEnemyCount != 0)
                 return;
-            DOTween.KillAll();
             SceneManager.sceneLoaded += DisableEnemy;
-            SceneManager.LoadScene("#" + --nowStage);
+            GotoStage(--nowStage);
         }
     }
 
-    private void DisableEnemy(Scene arg0, LoadSceneMode arg1)
+    protected void DisableEnemy(Scene arg0, LoadSceneMode arg1)
     {
         Player.Instance.isMoving = false;
         Player.Instance.transform.position = afterPos;
         SceneManager.sceneLoaded -= DisableEnemy;
     }
 
+    protected void GotoStage(int stage)
+    {
+        DOTween.KillAll();
+        SceneManager.LoadScene("#" + stage);
+    }
+
     public void AfterStage()
     {
         if (IngameUIManager.Instance.isClear || InGameManager.Instance.clearStage > nowStage)
         {
-            DOTween.KillAll();
-            SceneManager.LoadScene("#" + ++nowStage);
+            GotoStage(++nowStage);
             InGameManager.Instance.clearStage = Mathf.Max(InGameManager.Instance.clearStage, nowStage);
         }
     }

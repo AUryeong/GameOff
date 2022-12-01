@@ -19,9 +19,13 @@ public class Player : Singleton<Player>
     protected readonly float moveTileDuration = 0.2f;
 
     private float intCooldown = 1;
+    SpriteRenderer spriteRenderer;
+    Animator animator;
     protected override void Awake()
     {
         base.Awake();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         if (Instance != this)
         {
             Instance.transform.position = transform.position;
@@ -62,6 +66,7 @@ public class Player : Singleton<Player>
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             direction = Direction.RIGHT;
+            spriteRenderer.flipX = true;
         }
         else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
@@ -70,17 +75,31 @@ public class Player : Singleton<Player>
         else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             direction = Direction.LEFT;
+            spriteRenderer.flipX = false;
         }
-        else return;
+        else
+        {
+            if (animator.GetBool("isWalking"))
+                animator.SetBool("isWalking", false);
+            return;
+        }
 
         RaycastHit2D raycastHit2D = Physics2D.Raycast(transform.position, GetDirection(), 1, LayerMask.GetMask("Object", "IntObject", "Wall"));
         if (raycastHit2D.collider == null)
         {
             isMoving = true;
+            animator.SetBool("isWalking", true);
             transform.DOLocalMove(GetDirection(), moveTileDuration).SetRelative().OnComplete(() =>
             {
                 isMoving = false;
             }).SetEase(Ease.Linear);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision != null && collision.GetComponent<TraceEnemy>() != null)
+        {
+            GameManager.Instance.GameOver();
         }
     }
 
