@@ -61,7 +61,7 @@ public class TraceEnemy : MonoBehaviour
             SpriteRenderer.flipX = false;
         }
 
-        animator.SetBool(0, TraceStart);
+        animator.SetBool("trace", TraceStart);
     }
 
     protected virtual bool isDetecting()
