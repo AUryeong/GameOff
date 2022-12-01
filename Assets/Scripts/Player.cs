@@ -83,11 +83,10 @@ public class Player : Singleton<Player>
             }).SetEase(Ease.Linear);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log(collision);
-        if(collision.collider != null && collision.collider.GetComponent<TraceEnemy>() != null)
+        if (collision != null && collision.GetComponent<TraceEnemy>() != null)
         {
             GameManager.Instance.GameOver();
         }
