@@ -24,8 +24,9 @@ public class Door : MonoBehaviour, IInteractiveObj
         UIManager.Instance.BlackScreenFade(0.8f, 0f, 0.7f);
         if (GameManager.Instance.nowTracingEnemy != null)
         {
-            GameManager.Instance.tracingRoomChangeCount++;
-            GameManager.Instance.nowTracingEnemy.StopCoroutine(GameManager.Instance.nowTracingEnemy.Coroutine);
+            GameManager.Instance.tracingRoomChangeCount++; transform.DOKill();
+            GameManager.Instance.nowTracingEnemy.transform.DOKill();
+            GameManager.Instance.nowTracingEnemy.StopAllCoroutines();
             Invoke(nameof(TracingEnemy), 1);
         }
     }
@@ -34,7 +35,6 @@ public class Door : MonoBehaviour, IInteractiveObj
     {
         TraceEnemy traceEnemy = GameManager.Instance.nowTracingEnemy;
 
-        traceEnemy.DOKill();
         traceEnemy.transform.position = targetPos;
         traceEnemy.TraceStart = true;
         traceEnemy.StartCoroutine(traceEnemy.TracingStart());

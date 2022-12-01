@@ -81,7 +81,7 @@ public class TraceEnemy : MonoBehaviour
             if (canReTrace) break;
         }
 
-        while (Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f) yield return null;
+        while (Vector3.Distance(transform.position, Player.Instance.transform.position) < 1f || Vector3.Distance(transform.position, Player.Instance.transform.position) > 10f) yield return null;
         Coroutine = StartCoroutine(TracingStart());
     }
 
@@ -97,10 +97,10 @@ public class TraceEnemy : MonoBehaviour
             for (int j = 0; j < sizeY; j++)
             {
                 bool isWall = false;
-                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x, j + bottomLeft.y), 0.4f))
+                foreach (Collider2D col in Physics2D.OverlapCircleAll(new Vector2(i + bottomLeft.x + 0.5f, j + bottomLeft.y + 0.5f), 0.4f))
                     if (col.gameObject.layer == LayerMask.NameToLayer("Wall")
-                        && col.gameObject.layer == LayerMask.NameToLayer("Object")
-                       && col.gameObject.layer == LayerMask.NameToLayer("IntObject")) isWall = true;
+                        || col.gameObject.layer == LayerMask.NameToLayer("Object")
+                       || col.gameObject.layer == LayerMask.NameToLayer("IntObject")) isWall = true;
 
                 NodeArray[i, j] = new Node(isWall, i + bottomLeft.x, j + bottomLeft.y);
             }
@@ -115,13 +115,13 @@ public class TraceEnemy : MonoBehaviour
         ClosedList = new List<Node>();
         FinalNodeList = new List<Node>();
 
-
         while (OpenList.Count > 0)
         {
+
             // 열린리스트 중 가장 F가 작고 F가 같다면 H가 작은 걸 현재노드로 하고 열린리스트에서 닫힌리스트로 옮기기
             CurNode = OpenList[0];
             for (int i = 1; i < OpenList.Count; i++)
-                if (OpenList[i].F <= CurNode.F && OpenList[i].H < CurNode.H) CurNode = OpenList[i];
+                if (OpenList[i].F < CurNode.F || OpenList[i].F == CurNode.F && OpenList[i].H < CurNode.H) CurNode = OpenList[i];
 
             OpenList.Remove(CurNode);
             ClosedList.Add(CurNode);
@@ -172,11 +172,6 @@ public class TraceEnemy : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (FinalNodeList.Count != 0) for (int i = 0; i < FinalNodeList.Count - 1; i++)
-                Gizmos.DrawLine(new Vector2(FinalNodeList[i].x, FinalNodeList[i].y), new Vector2(FinalNodeList[i + 1].x, FinalNodeList[i + 1].y));
-    }
 
 
 }
