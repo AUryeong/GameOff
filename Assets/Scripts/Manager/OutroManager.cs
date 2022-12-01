@@ -10,10 +10,10 @@ public class OutroManager : MonoBehaviour
     [SerializeField] Image outroImage;
     private void Start()
     {
-        Destroy(Player.Instance);
-        Destroy(IngameUIManager.Instance);
-        Destroy(UIManager.Instance);
-        Destroy(InGameManager.Instance);
+        Destroy(Player.Instance.gameObject);
+        Destroy(IngameUIManager.Instance.gameObject);
+        Destroy(UIManager.Instance.gameObject);
+        Destroy(InGameManager.Instance.gameObject);
         StartCoroutine(OutroCoroutine());
     }
 

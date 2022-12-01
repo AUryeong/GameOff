@@ -84,6 +84,15 @@ public class Player : Singleton<Player>
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log(collision);
+        if(collision.collider != null && collision.collider.GetComponent<TraceEnemy>() != null)
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
     public Quaternion GetQuaternion()
     {
         return Quaternion.Euler(0, 0, (int)direction * 90);
