@@ -99,6 +99,25 @@ public class IngameUIManager : Singleton<IngameUIManager>
         if (noise != null)
             NoiseUpdate();
     }
+    public void KillEnemy()
+    {
+        killEnemyCount++;
+        switch (maxEnemyCount - killEnemyCount)
+        {
+            case 3:
+                ShowText("3.");
+                break;
+            case 2:
+                ShowText("Finally, 2");
+                break;
+            case 1:
+                ShowText("The last one.");
+                break;
+            case 0:
+                ShowText("To the next floor.");
+                break;
+        }
+    }
 
     protected void NoiseUpdate()
     {
